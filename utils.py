@@ -1,7 +1,7 @@
 import torch
 import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.style.use('ggplot') 
+matplotlib.style.use('ggplot')
 
 
 def save_model(epochs, model, optimizer, criterion):
@@ -16,6 +16,7 @@ def save_model(epochs, model, optimizer, criterion):
     }, 'out/model.pth')
 
 # def load_model()
+
 
 def save_plots(train_acc, valid_acc, train_loss, valid_loss):
     """

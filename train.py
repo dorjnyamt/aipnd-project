@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     print(vars(args))
-    
+
     os.makedirs(args.save_dir, exist_ok=True)
     root_dir = args.data_directory
     image_datasets = image_datasets(root_dir)
@@ -107,22 +107,26 @@ if __name__ == '__main__':
     if args.arch == 'vgg16':
         weights = models.VGG16_Weights.DEFAULT
         model = models.vgg16(weights=weights)
-        model.classifier[6] = nn.Linear(in_features=model.classifier[6].in_features, out_features=n_features)
+        model.classifier[6] = nn.Linear(
+            in_features=model.classifier[6].in_features, out_features=n_features)
     elif args.arch == 'resnet18':
         weights = models.ResNet18_Weights.DEFAULT
         model = models.resnet18(weights=weights)
-        model.fc = nn.Linear(in_features=model.fc_in_features, out_features=n_features)
+        model.fc = nn.Linear(
+            in_features=model.fc_in_features, out_features=n_features)
     else:
         raise ValueError(f'Model architecture {args.arch} is not supported')
     device = torch.device(
         "cuda:0" if torch.cuda.is_available() and args.gpu else "cpu")
     for param in model.parameters():
         param.requires_grad = False
-    
+
     model = model.to(device)
     optimizer = optim.Adam(model.classifier.parameters(),
                            lr=args.learning_rate)
     criterion = nn.CrossEntropyLoss()
-    exp_lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
+    exp_lr_scheduler = optim.lr_scheduler.StepLR(
+        optimizer, step_size=7, gamma=0.1)
 
-    model = train_model(args.save_dir, model, criterion, optimizer, exp_lr_scheduler, args.epochs, dataloaders, dataset_sizes, device)
+    model = train_model(args.save_dir, model, criterion, optimizer,
+                        exp_lr_scheduler, args.epochs, dataloaders, dataset_sizes, device)
