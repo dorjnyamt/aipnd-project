@@ -102,3 +102,4 @@ ENV/
 
 .github/**
 out/model.pth
+outputs/model.pth
