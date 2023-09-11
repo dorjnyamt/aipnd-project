@@ -101,6 +101,5 @@ ENV/
 .mypy_cache/
 
 .github/**
-out/model.pth
-outputs/model.pth
-models/model.pt
+models/*
+flowers/*
