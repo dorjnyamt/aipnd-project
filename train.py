@@ -1,6 +1,5 @@
 # Imports
 import os
-import sys
 import argparse
 
 import torch
@@ -8,7 +7,6 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 from datasets import image_datasets, image_loaders
-import utils
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
